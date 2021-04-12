@@ -47,15 +47,21 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>
-                Forms
+                Quiz
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
+                <a href="{{route('create.quiz')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
+                  <p>Create Quiz</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('all.quizzes')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>View all</p>
                 </a>
               </li>
             </ul>
