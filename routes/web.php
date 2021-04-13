@@ -50,4 +50,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
 });
 
+//page not found for API
+Route::get('page/not/found', [App\Http\Controllers\Api\RouteHandlingController::class, 'index'])->name('route.handling');
+
 

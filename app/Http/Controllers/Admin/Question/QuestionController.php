@@ -47,7 +47,7 @@ class QuestionController extends Controller
             'option_b' => 'required',
             'option_c' => 'required',
             'option_d' => 'required',
-            'answer' => 'required',
+            'answer' =>  ['required','regex:/^(?:([a-d])(?!.*\1)){1,4}$/'],
         ]);
 
         if ($validator->fails()) {
@@ -71,7 +71,8 @@ class QuestionController extends Controller
             $data1 = array();
             $data1['ques_name'] = $request->question_name;
             $data1['s_id'] = $request->section_name; 
-            $data1['ques_answer'] = $request->answer;
+            //separated answer value into single char like a or a,b etc
+            $data1['ques_answer'] = implode(",",str_split($request->answer));
             $data1['ques_type'] = $request->type;
             $ques_id=DB::table('questions')->insertGetId($data1);
             
