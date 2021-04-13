@@ -34,6 +34,7 @@ class AuthController extends Controller
 
         if ($token = $this->guard()->attempt($credentials)) {
             $userData = DB::table('admins')->where('email', $request->email)->first();
+            //pass send admin information with token
             return $this->respondWithToken($token, $userData);
         }
 

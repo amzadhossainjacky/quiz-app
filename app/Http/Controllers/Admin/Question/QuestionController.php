@@ -26,6 +26,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
+        //fetch quiz list
         $data = DB::table('quizzes')->orderBy('id', 'DESC')->get();
         return view('admin.question.create_question', compact('data'));
     }
@@ -38,6 +39,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+        //validation questions input fields
         $validator = Validator::make($request->all(), [
             'quiz_id' => 'required',
             'section_name' => 'required',
@@ -58,7 +60,7 @@ class QuestionController extends Controller
         }
 
         //section_name acquired section id
-        //question name check
+        //question name check (Already inserted or not)
         $allReadyInserted = DB::table('questions')->where('s_id','=', $request->section_name)->where('ques_name', '=',$request->question_name)->first();
 
         if($allReadyInserted){
@@ -91,9 +93,6 @@ class QuestionController extends Controller
             );
             return redirect()->back()->with($notification);
         }
-
-       
-
     }
 
     /**
@@ -141,6 +140,7 @@ class QuestionController extends Controller
         //
     }
 
+    //fetch section through ajax
     public function getSection($id){
         $section = DB::table('sections')->where('q_id', $id)->get();
         return json_encode($section);

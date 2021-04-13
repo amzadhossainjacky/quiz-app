@@ -26,7 +26,7 @@ class SectionController extends Controller
      */
     public function create()
     {
-        //
+        //fetch quiz list
         $data = DB::table('quizzes')->orderBy('id', 'DESC')->get();
         return view('admin.section.create_section', compact('data'));
     }
@@ -39,8 +39,7 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-
+        //validation for sections input field
         $validator = Validator::make($request->all(), [
             'quiz_name' => 'required',
             'section_name' => 'required',
@@ -53,21 +52,24 @@ class SectionController extends Controller
                         ->withInput();
         }
         
+        //check data already inserted or not
         $quiz = DB::table('quizzes')->where('q_name','=', $request->quiz_name)->first();
         $allReadyInserted = DB::table('sections')->where('q_id','=', $quiz->id)->where('s_name', '=',$request->section_name)->first();
 
         if($allReadyInserted){
+            //notification
             $notification=array(
                 'message'=>'Data already inserted.',
                     'alert-type'=>'error'
             );
             return redirect()->back()->with($notification);
         }else{
-
+            //store section
             $data = array();
             $data['s_name'] = $request->section_name;
             $data['q_id'] = $quiz->id;
             $insert = DB::table('sections')->insert($data);
+            //notification
             $notification=array(
                 'message'=>'Insert data successfully',
                     'alert-type'=>'info'

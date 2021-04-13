@@ -22,6 +22,7 @@ class QuizController extends Controller
     
     public function index()
     {
+        //fetch quiz list
         $data = DB::table('quizzes')->get();
         return response()->json($data, 200);
     }
@@ -55,6 +56,7 @@ class QuizController extends Controller
      */
     public function show($id)
     {
+        //fetch single quiz
         $data = DB::table('quizzes')->where('id', $id)->first();
         return response()->json($data, 200);
     }

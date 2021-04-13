@@ -8,8 +8,6 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
 use Illuminate\Http\Request;
 use Validator;
-
-
 class LoginController extends Controller
 {
     /*
@@ -17,7 +15,7 @@ class LoginController extends Controller
     | Login Controller
     |--------------------------------------------------------------------------
     |
-    | This controller handles authenticating users for the application and
+    | This controller handles authenticating admin for the application and
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
@@ -57,7 +55,7 @@ class LoginController extends Controller
 
             return redirect()->intended('/admin/home');
         }
-
+        
         return back()->withInput($request->only('email', 'remember'));
     }
 }

@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 
 class AdminHomeController extends Controller
 {
-    //
-
+    //send to admin dashboard
     public function index()
     {
         return view('admin.home');

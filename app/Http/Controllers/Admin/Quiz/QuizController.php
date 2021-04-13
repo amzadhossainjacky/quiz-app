@@ -16,7 +16,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        //
+        //fetch quiz list
         $data = DB::table('quizzes')->orderBy('id', 'DESC')->get();
         return view('admin.quiz.view_all', compact('data'));
     }
@@ -28,6 +28,7 @@ class QuizController extends Controller
      */
     public function create()
     {
+        //view form for add new quiz
         return view('admin.quiz.create_quiz');
     }
 
@@ -39,7 +40,7 @@ class QuizController extends Controller
      */
     public function store(Request $request)
     {
-        //validate data
+        //validate data for quiz input fields
         $validator = Validator::make($request->all(), [
             'name' => 'required | unique:quizzes,q_name',
         ]);
@@ -52,10 +53,11 @@ class QuizController extends Controller
         }
         
         $data = array();
-
         $data['q_name'] = $request->name;
+        //stored quiz
         $insert = DB::table('quizzes')->insert($data);
-
+        
+        //notification
         if($insert){
             $notification=array(
                 'message'=>'Insert data successfully',
@@ -90,7 +92,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        //
+        //view for editing quiz
         $data = DB::table('quizzes')->where('id', $id)->first();
         return view('admin.quiz.edit_quiz', compact('data'));
     }
@@ -117,10 +119,11 @@ class QuizController extends Controller
         }
         
         $data = array();
-
         $data['q_name'] = $request->name;
+        //stored data after updated
         $update = DB::table('quizzes')->where('id', $id)->update($data);
 
+        //notification
         if($update){
             $notification=array(
                 'message'=>'Update data successfully',
@@ -144,7 +147,9 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
+        //delete quiz
         DB::table('quizzes')->where('id', $id)->delete();
+        //notification
         $notification=array(
             'message'=>'Data deleted',
                 'alert-type'=>'error'
